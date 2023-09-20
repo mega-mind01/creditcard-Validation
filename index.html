@@ -84,7 +84,8 @@
         let bgColor = document.getElementById("bgColor");
 
         function validateCard() {
-            let creditCardNum = document.getElementById("credit-card").value;
+            let creditCardNum = document.getElementById("credit-card");
+            creditCardNum = creditCardNum.value;
 
             if (creditCardNum.length != 16) {
                 print.innerHTML = "Invalid length";
