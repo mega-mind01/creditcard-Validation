@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luhn Algorithm</title>
+    <style>
+        .container-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        label, input {
+            display: block;
+            margin: 10px auto;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #validate-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #validate-button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="container-fluid">
+        <section class="container" id="bgColor">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <h1>Luhn Algorithm</h1>
+
+                    <label for="credit-card">Enter Credit Card Number:</label>
+                    <input type="text" id="credit-card" placeholder="Enter credit card number">
+                    <button id="validate-button">Validate Card</button>
+                    <p id="result"></p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <script>
+        let btnValidateNum = document.getElementById("validate-button");
+        let print = document.getElementById("result");
+        btnValidateNum.addEventListener("click", validateCard);
+        let bgColor = document.getElementById("bgColor");
+
+        function validateCard() {
+            let creditCardNum = document.getElementById("credit-card").value;
+
+            if (creditCardNum.length !== 16) {
+                print.innerHTML = "Invalid length";
+                bgColor.style.backgroundColor = "orange";
+            } else {
+                let cardNum = creditCardNum.split("");
+                let updatedCardNum = [];
+                let j = 0;
+
+                for (let i = cardNum.length - 1; i >= 0; i--) {
+                    updatedCardNum[j] = parseInt(cardNum[i]);
+                    j++;
+                }
+
+                for (let i = 1; i < updatedCardNum.length; i += 2) {
+                    updatedCardNum[i] = updatedCardNum[i] * 2;
+                    if (updatedCardNum[i] > 9) {
+                        updatedCardNum[i] = updatedCardNum[i] - 9;
+                    }
+                }
+
+                let sum = 0;
+                for (let i = 0; i < updatedCardNum.length; i++) {
+                    sum = sum + updatedCardNum[i];
+                }
+
+                if (sum % 10 == 0) {
+                    print.innerHTML = "Card is valid";
+                    bgColor.style.backgroundColor = "green";
+                } else {
+                    print.innerHTML = "Invalid card";
+                    bgColor.style.backgroundColor = "red";
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
